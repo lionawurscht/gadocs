@@ -85,7 +85,7 @@ const Pdf = (() => {
 
   async function build(data) {
     await load();
-    const logo = await dataUrl("logo.jpg");
+    const logo = await dataUrl("logo.png");
     const values = { name: data.name, recipient: data.recipient };
     const rep = data.rep;
     const sig = data.signature;

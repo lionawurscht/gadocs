@@ -31,7 +31,7 @@ unreadable at a glance; no protection, the code is public.
 | `pdf.js` | the PDF with pdfmake: German left, English right, signature, date, signing time |
 | `make.html`, `make.js` | the link generator |
 | `vendor/` | pdfmake 0.2.20 and its Roboto fonts, served from here, not a CDN |
-| `logo.jpg`, `icon.png` | the Goral mark |
+| `logo.png`, `icon.png` | the Goral mark |
 
 ## Defaults
 
