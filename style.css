@@ -1,0 +1,245 @@
+:root {
+  --ink: #1d2a35;
+  --muted: #5b6670;
+  --blue: #1f6fb8;
+  --green: #7cb342;
+  --line: #d8dee4;
+  --bg: #f4f6f8;
+  --error: #b3261e;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body.padopen { overflow: hidden; }
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0.8rem 1rem;
+}
+
+.logo { height: 3rem; width: auto; }
+
+.langs { display: flex; border: 1px solid var(--line); border-radius: 0.5rem; overflow: hidden; }
+
+.langs button {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border: 0;
+  background: #fff;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.langs button[aria-pressed="true"] { background: var(--blue); color: #fff; }
+
+main {
+  max-width: 46rem;
+  margin: 0 auto 2rem;
+  padding: 1.2rem 1rem 1.5rem;
+  background: #fff;
+  border-radius: 0.8rem;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+@media (max-width: 47rem) {
+  main { border-radius: 0; box-shadow: none; }
+}
+
+h1 { font-size: 1.3rem; margin: 0 0 0.5rem; }
+h2 { font-size: 1.02rem; margin: 1.4rem 0 0.4rem; }
+p { margin: 0.4rem 0; }
+
+.intro {
+  background: #eef5fc;
+  border-left: 4px solid var(--blue);
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.3rem;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+  margin: 1rem 0;
+}
+
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
+
+.hint { color: var(--muted); font-size: 0.92rem; }
+.sub { margin-top: 0.8rem; }
+.small { color: var(--muted); font-size: 0.78rem; margin-top: 2rem; }
+
+.check {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.55rem 0.6rem;
+  margin: 0.3rem 0;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.check input { width: 1.3rem; height: 1.3rem; margin: 0.1rem 0 0; flex: none; accent-color: var(--blue); }
+.check.strong { font-weight: 600; }
+
+.signing {
+  margin-top: 1.6rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+#rep { margin: 0.4rem 0 1rem; }
+
+.field { display: block; margin: 0.7rem 0; }
+.field > span { display: block; font-size: 0.92rem; color: var(--muted); margin-bottom: 0.2rem; }
+
+.field input, .field select, .field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.55rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: #fff;
+  color: inherit;
+}
+
+.sigrow { margin: 1rem 0 0.6rem; }
+
+.sigbox {
+  height: 7rem;
+  border: 2px dashed var(--line);
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  cursor: pointer;
+  background: #fbfcfd;
+}
+
+.sigbox img { max-height: 6rem; max-width: 95%; }
+
+.sigmeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-top: 0.3rem;
+}
+
+.btn {
+  display: inline-block;
+  font: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1.2rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.btn.primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+.btn:disabled { opacity: 0.6; cursor: progress; }
+
+#b-sign { width: 100%; }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 1.2rem;
+}
+
+.actions .btn { flex: 1 1 10rem; }
+.actions .hint { flex-basis: 100%; }
+
+.error {
+  color: var(--error);
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+#fail { margin-top: 1rem; }
+
+/* the signature pad over the whole screen */
+.pad {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+
+.padbar {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.padbar .btn { flex: 1; padding: 0.6rem; }
+
+.padarea { position: relative; flex: 1; }
+
+#pad-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  z-index: 1;
+  cursor: crosshair;
+}
+
+.padline {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 28%;
+  border-bottom: 2px solid var(--line);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.padline span { position: absolute; top: 0.4rem; left: 0; }
+
+.padhint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.6rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+@media (orientation: landscape) { .padhint { display: none; } }

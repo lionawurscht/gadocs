@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Goral Assistance – release link</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <img class="logo" src="logo.jpg" alt="Goral Assistance">
+</header>
+<main>
+  <h1>Medical release link</h1>
+  <p class="hint">Built in this browser; nothing is sent anywhere. The data rides in the link's fragment.</p>
+  <form id="form">
+    <label class="field"><span>Case file</span><input id="caseNo" required inputmode="numeric"></label>
+    <label class="field"><span>Patient name</span><input id="name" required></label>
+    <label class="field"><span>Date of birth</span><input id="dob" placeholder="DD.MM.YYYY"></label>
+    <label class="field"><span>To (hospital or provider)</span><input id="recipient" required></label>
+    <label class="field"><span>Language the patient sees first</span>
+      <select id="lang">
+        <option value="">the phone's language</option>
+        <option value="de">German</option>
+        <option value="en">English</option>
+      </select></label>
+    <div class="actions">
+      <button class="btn primary" type="submit">Make link</button>
+    </div>
+  </form>
+  <div id="out" hidden>
+    <label class="field"><span>Link</span><textarea id="link" rows="4" readonly></textarea></label>
+    <div class="actions">
+      <button class="btn primary" type="button" id="copy">Copy</button>
+      <a class="btn" id="open" target="_blank" rel="noopener">Open</a>
+    </div>
+    <p class="hint" id="copied" hidden>Copied.</p>
+  </div>
+</main>
+<script src="codec.js"></script>
+<script src="make.js"></script>
+</body>
+</html>
