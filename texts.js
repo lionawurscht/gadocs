@@ -1,5 +1,6 @@
 // Every text of the form and the page, German and English. The form's wording
-// follows the WebApp's release (doc_release3.asp), typos fixed. {name} and
+// is the WebApp's release (doc_release3.asp), word for word, typos included,
+// so this page and the Case Console's bilingual form say the same. {name} and
 // {recipient} come from the link.
 "use strict";
 
@@ -19,7 +20,7 @@ const TEXTS = {
     caseNo: "Fallnummer",
     s1: "Abschnitt I",
     s1Text:
-      "Ich, {name}, erlaube {recipient}, meine Personendaten, aufgeführt in Abschnitt II dieses Dokuments, mit den Personen oder Organisationen, aufgeführt in Abschnitt III dieses Dokuments, zu teilen.",
+      "Ich, {name}, erlaube {recipient} meine Personendaten, aufgeführt in Abschnitt II dieses Dokuments, mit den Personen oder Organizationen,aufgeführt in Abschnitt III dieses Dokuments, zu teilen.",
     s2: "Abschnitt II – Gesundheitsdaten",
     s2Text: "Ich erlaube die Teilung meiner Daten mit der oben aufgeführten Organisation:",
     tick: "Zutreffendes ankreuzen",
@@ -32,19 +33,19 @@ const TEXTS = {
     s3Text:
       "Ich autorisiere die Teilung meiner Gesundheitsdaten, definiert in Abschnitt II dieses Dokuments, mit den folgenden Personen oder Organisationen:",
     s3Name: "Name",
-    s3Org: "Organisation",
-    s3Address: "Adresse",
+    s3Org: "Organization",
+    s3Address: "Address",
     s3Note:
       "Mir ist bekannt, dass die oben genannte(n) Person(en)/Organisation(en) möglicherweise nicht den (bundes)staatlichen Vorschriften über den Datenschutz und die Datensicherheit unterliegen und die ihnen zur Verfügung gestellten Informationen weitergeben dürfen.",
     s4: "Abschnitt IV – Dauer der Erlaubnis",
-    s4Text: "Diese Autorisierung zur Teilung meiner Gesundheitsdaten ist gültig für 1 Jahr nach Unterschriftsdatum.",
+    s4Text: "Diese Autorisierung zur Teilung meiner Gesundheitstdaten ist gültig für 1Jahr nach Unterschriftsdatum.",
     signature: "Unterschrift",
     date: "Datum",
     repIntro:
       "Wenn dieses Formular von einer Person ausgefüllt wird, die rechtlich befugt ist, im Namen einer Person zu handeln, z. B. von einem Elternteil oder Erziehungsberechtigten eines Minderjährigen oder einem Bevollmächtigten im Gesundheitswesen, füllen Sie bitte die folgenden Informationen aus:",
     repName: "Name der Vertretungsperson",
     repSignature: "Unterschrift der Vertretungsperson",
-    repAuthority: "Beschreiben Sie, welche Art der Vertretungsberechtigung vorliegt",
+    repAuthority: "Beschreiben Sie welche Art der Vertretungsberechtigung vorliegt",
     confidentiality:
       "Diskretionshinweis: Die in diesem Formular enthaltenen Informationen sind für die oben genannte Person oder Gesellschaft bestimmt und können Informationen enthalten, die privilegiert oder vertraulich sind. Sollte der Leser dieser Nachricht nicht der vorgesehene Empfänger sein, werden Sie hiermit darauf hingewiesen, dass jegliche Verbreitung, Verteilung oder Vervielfältigung dieser Mitteilung streng verboten ist. Sollten Sie diese Mitteilung irrtümlich erhalten haben, benachrichtigen Sie uns bitte umgehend. Wir wären Ihnen dankbar, wenn Sie das Original an uns zurückschicken würden.",
     signedAt: "Elektronisch unterzeichnet am {when}",
@@ -93,8 +94,8 @@ const TEXTS = {
     title: "Medical Release for Goral Assistance Germany",
     docTitle: "Medical Release",
     to: "To",
-    patient: "Patient name",
-    dob: "Date of birth",
+    patient: "Patient Name",
+    dob: "DOB",
     caseNo: "Case file",
     s1: "Section I",
     s1Text:
@@ -104,26 +105,26 @@ const TEXTS = {
     tick: "Tick as appropriate",
     record:
       "Disclose my complete health record including, but not limited to, diagnoses, lab test results, treatment, and billing records for all conditions.",
-    form: "Form of disclosure:",
+    form: "Form of Disclosure:",
     electronic: "Electronic copy or access via a web-based portal",
     hardCopy: "Hard copy",
     s3: "Section III – Who Can Receive My Health Information",
     s3Text:
-      "I give authorization for the health information detailed in Section II of this document to be shared with the following individual(s) or organization(s):",
+      "I give authorization for the health information detailed in section II of this document to be shared with the following individual(s) or organization(s)",
     s3Name: "Name",
     s3Org: "Organization",
     s3Address: "Address",
     s3Note:
       "I understand that the person(s)/organization(s) listed above may not be covered by state/federal rules governing privacy and security of data and may be permitted to further share the information that is provided to them.",
     s4: "Section IV – Duration of Authorization",
-    s4Text: "This authorization to share my health information is valid for one year from the signature date.",
+    s4Text: "This authorization to share my health information is valid for one year from signature date.",
     signature: "Signature",
     date: "Date",
     repIntro:
-      "If this form is being completed by a person with legal authority to act on an individual’s behalf, such as a parent or legal guardian of a minor or health care agent, please complete the following information:",
+      "If this form is being completed by a person with legal authority to act an individual’s behalf, such as a parent or legal guardian of a minor or health care agent, please complete the following information:",
     repName: "Name of person completing this form",
     repSignature: "Signature of person completing this form",
-    repAuthority: "Describe how this person has legal authority to sign this form",
+    repAuthority: "Describe below how this person has legal authority to sign this form",
     confidentiality:
       "Confidentiality: The information contained in this form is intended for the individual or entity named above and may contain information that is privileged or confidential. If the reader of this message is not the intended recipient you are hereby notified that any dissemination, distribution or copying of this communication is strictly prohibited. If you have received this communication in error, please notify us immediately. We would appreciate your returning the original to us.",
     signedAt: "Signed electronically on {when}",

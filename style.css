@@ -83,6 +83,22 @@ p { margin: 0.4rem 0; }
 .facts dt { color: var(--muted); }
 .facts dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
 
+/* the case, two to a row, a small label over a bold value (as the form's PDF) */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1.2rem;
+  margin: 1rem 0;
+}
+
+.fact { padding: 0.3rem 0 0.4rem; border-bottom: 1px solid var(--line); min-width: 0; }
+.fact .lab { color: var(--muted); font-size: 0.8rem; }
+.fact .val { font-weight: 600; overflow-wrap: anywhere; min-height: 1.5em; }
+
+@media (max-width: 30rem) {
+  .grid { grid-template-columns: 1fr; }
+}
+
 .hint { color: var(--muted); font-size: 0.92rem; }
 .sub { margin-top: 0.8rem; }
 .small { color: var(--muted); font-size: 0.78rem; margin-top: 2rem; }

@@ -25,7 +25,7 @@ unreadable at a glance; no protection, the code is public.
 | File | What |
 |---|---|
 | `index.html`, `app.js` | the patient's page: the case from the link, language, ticks, representative, signature, PDF, share or download |
-| `texts.js` | every text, German and English; the form follows the WebApp's `doc_release3.asp`; `COMPANY` |
+| `texts.js` | every text, German and English; the form is the WebApp's `doc_release3.asp` word for word (typos included, so it matches the Case Console's bilingual form); `COMPANY` |
 | `codec.js` | the link's payload, both ways |
 | `signature.js` | the full-screen signature pad (pointer events, cropped PNG at 3x) |
 | `pdf.js` | the PDF with pdfmake: German left, English right, signature, date, signing time |

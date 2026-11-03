@@ -95,22 +95,34 @@ const Pdf = (() => {
       { text: value || "", bold: true },
     ];
 
+    // a label over its value, both languages in the label, as in the Console's form
+    const cell = (key, value) => ({
+      stack: [
+        { text: `${TEXTS.de[key]} / ${TEXTS.en[key]}`, style: "label" },
+        { text: value || " ", bold: true },
+      ],
+      margin: [0, 3, 0, 4],
+    });
+
     const content = [
-      { image: logo, width: 150, alignment: "center", margin: [0, 0, 0, 10] },
-      { text: `${TEXTS.de.docTitle} / ${TEXTS.en.docTitle}`, style: "title" },
-      { columns: both((t) => ({ text: t.title, alignment: "center" })), columnGap: 18, style: "subtitle" },
+      { image: logo, width: 150, alignment: "center", margin: [0, 0, 0, 12] },
+      { columns: both((t) => ({ text: t.title, style: "title" })), columnGap: 18, margin: [0, 0, 0, 8] },
       {
         table: {
-          widths: [120, "*"],
+          widths: ["*", "*"],
           body: [
-            fact("to", data.recipient),
-            fact("patient", data.name),
-            fact("dob", data.dob),
-            fact("caseNo", data.caseNo),
+            [cell("to", data.recipient), cell("patient", data.name)],
+            [cell("dob", data.dob), cell("caseNo", data.caseNo)],
           ],
         },
-        layout: "noBorders",
-        margin: [0, 6, 0, 12],
+        layout: {
+          hLineWidth: (i) => (i > 0 ? 0.5 : 0),
+          vLineWidth: () => 0,
+          hLineColor: () => "#d8dee4",
+          paddingLeft: (i) => (i === 0 ? 0 : 9),
+          paddingRight: (i) => (i === 0 ? 9 : 0),
+        },
+        margin: [0, 2, 0, 10],
       },
 
       section("s1", pair((t) => ({ text: fill(t.s1Text, values) }))),
@@ -211,8 +223,7 @@ const Pdf = (() => {
       }),
       defaultStyle: { font: "Roboto", fontSize: 9.5, lineHeight: 1.2 },
       styles: {
-        title: { fontSize: 16, bold: true, alignment: "center", color: "#1d2a35" },
-        subtitle: { fontSize: 10, color: "#444", margin: [0, 2, 0, 4] },
+        title: { fontSize: 14, bold: true, alignment: "center", color: "#1d2a35" },
         head: { bold: true, fontSize: 10.5, color: "#1d2a35", margin: [0, 8, 0, 3] },
         label: { fontSize: 8, color: "#555" },
         small: { fontSize: 7, color: "#555" },
