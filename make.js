@@ -4,7 +4,7 @@
 
 (() => {
   const $ = (id) => document.getElementById(id);
-  const FIELDS = ["caseNo", "name", "dob", "recipient", "lang", "treatment", "location", "insurer"];
+  const FIELDS = ["caseNo", "name", "dob", "recipient", "lang", "treatment", "location"];
 
   const showV2 = () => {
     for (const el of document.querySelectorAll(".v2f")) el.hidden = $("mrf").value !== "02";

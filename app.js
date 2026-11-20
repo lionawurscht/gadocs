@@ -192,7 +192,6 @@
     $("g-name").textContent = state.data.name;
     $("g-dob").textContent = state.data.dob;
     $("g-case").textContent = state.data.caseNo;
-    $("g-insurer").textContent = state.data.insurer;
     $("g-treat").textContent = state.data.treatment;
     $("g-loc").value = state.data.location;
     $("f-recipient").textContent = state.data.recipient;

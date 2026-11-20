@@ -185,8 +185,6 @@ const TEXTS2 = {
     docTitle: "Einwilligung und Schweigepflichtentbindung",
     title: "Entbindung von der Schweigepflicht, Datenweitergabe und Einwilligung zur Telemedizin",
     caseNo: "Goral-Fallnummer",
-    insurer: "Versicherung und Referenz",
-    insurerPh: "Name der Versicherung + Referenz",
     provider: "Behandelnder Arzt / Praxis",
     treatDate: "Behandlungsdatum",
     patientFull: "Vollständiger Name der Patientin / des Patienten",
@@ -195,11 +193,9 @@ const TEXTS2 = {
     locationPh: "z. B. 50667 Köln, Deutschland",
     s1: "1. Entbindung von der ärztlichen Schweigepflicht",
     s1Text:
-      "Hiermit entbinde ich den oben genannten Behandler, einschließlich seines Praxisteams und der beteiligten medizinischen Fachkräfte, von der gesetzlichen ärztlichen Schweigepflicht. Sie dürfen meine medizinischen Daten und Abrechnungsdaten weitergeben an:",
+      "Hiermit entbinde ich den oben genannten Behandler, einschließlich seines Praxisteams und der beteiligten medizinischen Fachkräfte, von der gesetzlichen ärztlichen Schweigepflicht. Sie dürfen meine medizinischen Daten und Abrechnungsdaten ausschließlich weitergeben an:",
     s1Recipients: [
       "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Deutschland",
-      "Goral Assistance LTD, Ra'anana, Israel (von der EU anerkanntes Datenschutzniveau)",
-      "Meine oben genannte Versicherung (und deren beauftragte medizinische Prüfer / Schadenprüfer)",
     ],
     s1After:
       "Andere Dritte erhalten meine Daten nicht, es sei denn, dies ist gesetzlich vorgeschrieben oder für eine in meinem Auftrag organisierte medizinische Weiterbehandlung erforderlich.",
@@ -243,8 +239,6 @@ const TEXTS2 = {
     docTitle: "Medical Release",
     title: "Release from Medical Confidentiality, Data Sharing & Telemedicine Consent",
     caseNo: "Goral File Number",
-    insurer: "Insurance Company & Reference",
-    insurerPh: "Insurer name + insurer reference",
     provider: "Healthcare Provider / Practice",
     treatDate: "Date of Treatment",
     patientFull: "Patient Full Name",
@@ -253,11 +247,9 @@ const TEXTS2 = {
     locationPh: "e.g. 50667 Cologne, Germany",
     s1: "1. Release from Medical Confidentiality",
     s1Text:
-      "I hereby release the healthcare provider named above, including their practice team and involved medical staff, from statutory medical confidentiality. They are authorized to share my medical and billing data with:",
+      "I hereby release the healthcare provider named above, including their practice team and involved medical staff, from statutory medical confidentiality. They are authorized to share my medical and billing data exclusively with:",
     s1Recipients: [
       "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Germany",
-      "Goral Assistance LTD, Ra'anana, Israel (EU-approved data protection level)",
-      "My insurance company named above (and its designated medical/claims auditors)",
     ],
     s1After:
       "No other third parties will receive my data unless required by law or necessary for follow-up medical care arranged on my behalf.",

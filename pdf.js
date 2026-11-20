@@ -271,10 +271,9 @@ const Pdf = (() => {
         table: {
           widths: ["*", "*"],
           body: [
-            [cell("caseNo", data.caseNo), cell("insurer", data.insurer)],
-            [cell("provider", data.recipient), cell("treatDate", data.treatment)],
-            [cell("patientFull", data.name), cell("dob", data.dob)],
-            [cell("location", data.location), { text: "" }],
+            [cell("caseNo", data.caseNo), cell("treatDate", data.treatment)],
+            [cell("provider", data.recipient), cell("patientFull", data.name)],
+            [cell("dob", data.dob), cell("location", data.location)],
           ],
         },
         layout: {
