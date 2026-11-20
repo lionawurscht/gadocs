@@ -25,8 +25,9 @@
     }
     document.title = `Goral Assistance – ${t("docTitle")}`;
     if (v2) {
-      const ul = $("s5-items");
-      ul.replaceChildren(...TX[state.lang].s5Items.map((x) => Object.assign(document.createElement("li"), { textContent: x })));
+      for (const [id, key] of [["s1-items", "s1Recipients"], ["s5-items", "s5Items"]]) {
+        $(id).replaceChildren(...TX[state.lang][key].map((x) => Object.assign(document.createElement("li"), { textContent: x })));
+      }
     }
     if (state.data) {
       if (!v2) $("s1-text").textContent = fill(t("s1Text"), state.data);
@@ -191,6 +192,7 @@
     $("g-name").textContent = state.data.name;
     $("g-dob").textContent = state.data.dob;
     $("g-case").textContent = state.data.caseNo;
+    $("g-insurer").textContent = state.data.insurer;
     $("g-treat").textContent = state.data.treatment;
     $("g-loc").value = state.data.location;
     $("f-recipient").textContent = state.data.recipient;

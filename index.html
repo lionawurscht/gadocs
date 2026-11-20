@@ -9,7 +9,7 @@
       content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' data: blob:; frame-src blob:; base-uri 'none'; form-action 'none'">
 <title>Goral Assistance – Medical Release</title>
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 <header class="top">
@@ -72,6 +72,7 @@
     <div class="grid">
       <div class="fact"><div class="lab" data-t="caseNo"></div><div class="val" id="g-case"></div></div>
       <div class="fact"><div class="lab" data-t="treatDate"></div><div class="val" id="g-treat"></div></div>
+      <div class="fact"><div class="lab" data-t="insurer"></div><div class="val" id="g-insurer"></div></div>
       <div class="fact"><div class="lab" data-t="provider"></div><div class="val" id="g-recipient"></div></div>
       <div class="fact"><div class="lab" data-t="patientFull"></div><div class="val" id="g-name"></div></div>
       <div class="fact"><div class="lab" data-t="dob"></div><div class="val" id="g-dob"></div></div>
@@ -82,7 +83,7 @@
     <section>
       <h2 data-t="s1"></h2>
       <p data-t="s1Text"></p>
-      <p><strong data-t="s1Recipient"></strong></p>
+      <ul id="s1-items"></ul>
       <p data-t="s1After"></p>
     </section>
     <section>
@@ -171,10 +172,10 @@
   </div>
 </div>
 
-<script src="texts.js"></script>
-<script src="codec.js"></script>
-<script src="signature.js"></script>
-<script src="pdf.js"></script>
-<script src="app.js"></script>
+<script src="texts.js?v=2"></script>
+<script src="codec.js?v=2"></script>
+<script src="signature.js?v=2"></script>
+<script src="pdf.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

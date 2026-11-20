@@ -183,8 +183,10 @@ const TEXTS2 = {
   de: {
     ...TEXTS.de,
     docTitle: "Einwilligung und Schweigepflichtentbindung",
-    title: "Entbindung von der Schweigepflicht, Datenweitergabe und optionale Einwilligung zur Telemedizin",
+    title: "Entbindung von der Schweigepflicht, Datenweitergabe und Einwilligung zur Telemedizin",
     caseNo: "Goral-Fallnummer",
+    insurer: "Versicherung und Referenz",
+    insurerPh: "Name der Versicherung + Referenz",
     provider: "Behandelnder Arzt / Praxis",
     treatDate: "Behandlungsdatum",
     patientFull: "Vollständiger Name der Patientin / des Patienten",
@@ -193,8 +195,12 @@ const TEXTS2 = {
     locationPh: "z. B. 50667 Köln, Deutschland",
     s1: "1. Entbindung von der ärztlichen Schweigepflicht",
     s1Text:
-      "Hiermit entbinde ich den oben genannten Behandler, einschließlich seines Praxisteams und der beteiligten medizinischen Fachkräfte, von der gesetzlichen ärztlichen Schweigepflicht. Sie dürfen meine medizinischen Daten und Abrechnungsdaten ausschließlich weitergeben an:",
-    s1Recipient: "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Deutschland",
+      "Hiermit entbinde ich den oben genannten Behandler, einschließlich seines Praxisteams und der beteiligten medizinischen Fachkräfte, von der gesetzlichen ärztlichen Schweigepflicht. Sie dürfen meine medizinischen Daten und Abrechnungsdaten weitergeben an:",
+    s1Recipients: [
+      "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Deutschland",
+      "Goral Assistance LTD, Ra'anana, Israel (von der EU anerkanntes Datenschutzniveau)",
+      "Meine oben genannte Versicherung (und deren beauftragte medizinische Prüfer / Schadenprüfer)",
+    ],
     s1After:
       "Andere Dritte erhalten meine Daten nicht, es sei denn, dies ist gesetzlich vorgeschrieben oder für eine in meinem Auftrag organisierte medizinische Weiterbehandlung erforderlich.",
     s2: "2. Welche Daten",
@@ -212,7 +218,7 @@ const TEXTS2 = {
     s5Items: [
       "Meine Einwilligung ist freiwillig und gilt für diesen Fall und die damit zusammenhängende Folgebehandlung für höchstens 12 Monate.",
       "Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft per E-Mail oder Brief an den Behandler oder an Goral Assistance widerrufen. Vor dem Widerruf weitergegebene Daten bleiben rechtmäßig weitergegeben.",
-      "Ohne Einwilligung kann meine Behandlung oder direkte Abrechnung nicht organisiert werden; in diesem Fall zahle ich die ärztliche Rechnung selbst.",
+      "Ohne Einwilligung zahlt meine Versicherung möglicherweise nicht direkt; in diesem Fall zahle ich die ärztliche Rechnung selbst.",
       "Ich kann Auskunft über meine Daten sowie deren Berichtigung oder Löschung verlangen (im Rahmen der gesetzlichen Grenzen) und mich bei einer zuständigen Datenschutz-Aufsichtsbehörde beschweren (z. B. LDI NRW, Düsseldorf).",
       "Mir ist bekannt, dass der Arzt nach deutschem Recht Behandlungsunterlagen 10 Jahre aufbewahren muss.",
     ],
@@ -235,8 +241,10 @@ const TEXTS2 = {
   en: {
     ...TEXTS.en,
     docTitle: "Medical Release",
-    title: "Medical Information Release, Data Sharing & Optional Telemedicine Consent",
+    title: "Release from Medical Confidentiality, Data Sharing & Telemedicine Consent",
     caseNo: "Goral File Number",
+    insurer: "Insurance Company & Reference",
+    insurerPh: "Insurer name + insurer reference",
     provider: "Healthcare Provider / Practice",
     treatDate: "Date of Treatment",
     patientFull: "Patient Full Name",
@@ -245,8 +253,12 @@ const TEXTS2 = {
     locationPh: "e.g. 50667 Cologne, Germany",
     s1: "1. Release from Medical Confidentiality",
     s1Text:
-      "I hereby release the healthcare provider named above, including their practice team and involved medical staff, from statutory medical confidentiality. They are authorized to share my medical and billing data exclusively with:",
-    s1Recipient: "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Germany",
+      "I hereby release the healthcare provider named above, including their practice team and involved medical staff, from statutory medical confidentiality. They are authorized to share my medical and billing data with:",
+    s1Recipients: [
+      "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Germany",
+      "Goral Assistance LTD, Ra'anana, Israel (EU-approved data protection level)",
+      "My insurance company named above (and its designated medical/claims auditors)",
+    ],
     s1After:
       "No other third parties will receive my data unless required by law or necessary for follow-up medical care arranged on my behalf.",
     s2: "2. Which Data",
@@ -254,7 +266,7 @@ const TEXTS2 = {
       "My name, date of birth, contact details, and current location; identity verification data; symptoms, relevant medical history, diagnoses, lab/imaging findings, treatment and consultation records; prescriptions, medical reports (MR), and itemized invoices (including related follow-up care).",
     s3: "3. Why",
     s3Text:
-      "To verify my identity, organize and carry out my medical treatment, issue a Guarantee of Payment (GOP), verify coverage, settle medical invoices directly with the provider, and—if needed—arrange further care, prescriptions, hospitalization, or medical transport home.",
+      "To verify my identity, organize and carry out my medical treatment, issue a Guarantee of Payment (GOP), verify insurance coverage, settle medical invoices directly with the provider, and—if needed—arrange further care, prescriptions, hospitalization, or medical transport home.",
     s4: "4. E-Mail Communication & Optional Telemedicine Consent",
     s4Email:
       "E-Mail Transmission: I agree that medical reports, prescriptions, and invoices may be sent electronically (e.g., by e-mail or patient portal) between the provider, Goral Assistance, and myself. I know that standard unencrypted e-mail is not fully secure.",
@@ -264,7 +276,7 @@ const TEXTS2 = {
     s5Items: [
       "My consent is voluntary and valid for this case and related follow-up care for a maximum of 12 months.",
       "I can withdraw my consent at any time with future effect by e-mail or letter to the provider or to Goral Assistance. Data shared before withdrawal remains lawfully shared.",
-      "Without consent, my care or direct billing cannot be organized; in that case, I will pay the medical bill myself.",
+      "Without consent, my insurance may not pay directly; in that case, I will pay the medical bill myself.",
       "I can request access to, correction, or deletion of my data (within legal limits) and can lodge a complaint with a competent data protection supervisory authority (e.g., LDI NRW, Düsseldorf).",
       "I acknowledge that under German law, the physician must retain medical records for 10 years.",
     ],

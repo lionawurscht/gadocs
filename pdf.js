@@ -271,9 +271,10 @@ const Pdf = (() => {
         table: {
           widths: ["*", "*"],
           body: [
-            [cell("caseNo", data.caseNo), cell("treatDate", data.treatment)],
-            [cell("provider", data.recipient), cell("patientFull", data.name)],
-            [cell("dob", data.dob), cell("location", data.location)],
+            [cell("caseNo", data.caseNo), cell("insurer", data.insurer)],
+            [cell("provider", data.recipient), cell("treatDate", data.treatment)],
+            [cell("patientFull", data.name), cell("dob", data.dob)],
+            [cell("location", data.location), { text: "" }],
           ],
         },
         layout: {
@@ -285,7 +286,7 @@ const Pdf = (() => {
         },
         margin: [0, 2, 0, 10],
       },
-      sec("s1", para("s1Text"), pair((t) => ({ text: t.s1Recipient, bold: true })), para("s1After")),
+      sec("s1", para("s1Text"), pair((t) => ({ ul: t.s1Recipients, bold: true, markerColor: "#555", margin: [0, 0, 0, 2] })), para("s1After")),
       sec("s2", para("s2Text")),
       sec("s3", para("s3Text")),
       sec("s4", para("s4Email"), pair((t) => ({ columns: [box(data.telehealth), { text: t.telehealth }] }))),
