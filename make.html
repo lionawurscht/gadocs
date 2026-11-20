@@ -23,6 +23,13 @@
     <label class="field"><span>Patient name</span><input id="name" required></label>
     <label class="field"><span>Date of birth</span><input id="dob" placeholder="DD.MM.YYYY"></label>
     <label class="field"><span>To (hospital or provider)</span><input id="recipient" required></label>
+    <label class="field"><span>Form version</span>
+      <select id="mrf">
+        <option value="01">01: the current form (as in the WebApp)</option>
+        <option value="02">02: the reworked form (new MRF)</option>
+      </select></label>
+    <label class="field v2f"><span>Date of treatment (version 02)</span><input id="treatment" placeholder="DD.MM.YYYY"></label>
+    <label class="field v2f"><span>Current location, city / postal code / country (version 02; the patient can complete it)</span><input id="location"></label>
     <label class="field"><span>Language the patient sees first</span>
       <select id="lang">
         <option value="">the phone's language</option>

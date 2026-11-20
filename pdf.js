@@ -54,9 +54,12 @@ const Pdf = (() => {
     return { canvas: shapes, width: 14 };
   }
 
+  // the texts of the version being built (TEXTS, or TEXTS2 for 02)
+  let TX = TEXTS;
+
   const both = (fn, opts = {}) => [
-    { ...opts, ...fn(TEXTS.de) },
-    { ...opts, ...fn(TEXTS.en) },
+    { ...opts, ...fn(TX.de) },
+    { ...opts, ...fn(TX.en) },
   ];
 
   function pair(fn, opts) {
@@ -84,6 +87,7 @@ const Pdf = (() => {
   }
 
   async function build(data) {
+    TX = TEXTS;
     await load();
     const logo = await dataUrl("logo.png");
     const values = { name: data.name, recipient: data.recipient };
@@ -234,10 +238,165 @@ const Pdf = (() => {
     return new Promise((resolve) => pdf.getBlob(resolve));
   }
 
+  // The second version of the form (TEXTS2, ?mrf-version=02): the reworked
+  // Medical Information Release, same German | English layout.
+  async function build2(data) {
+    TX = TEXTS2;
+    await load();
+    const logo = await dataUrl("logo.png");
+    const T = TEXTS2;
+    const rep = data.rep;
+    const sig = data.signature;
+    const when = new Date();
+    const lbl = (key) => `${T.de[key]} / ${T.en[key]}`;
+
+    const cell = (key, value) => ({
+      stack: [{ text: lbl(key), style: "label" }, { text: value || " ", bold: true }],
+      margin: [0, 3, 0, 4],
+    });
+    const blank = (key, width) => ({
+      stack: [
+        { canvas: [{ type: "line", x1: 0, y1: 14, x2: width, y2: 14, lineWidth: 0.6 }] },
+        { text: lbl(key), style: "label", margin: [0, 2, 0, 0] },
+      ],
+      margin: [0, 6, 0, 4],
+    });
+    const para = (key) => pair((t) => ({ text: t[key] }));
+    const sec = (key, ...body) => section(key, ...body);
+
+    const content = [
+      { image: logo, width: 150, alignment: "center", margin: [0, 0, 0, 12] },
+      { columns: both((t) => ({ text: t.title, style: "title" })), columnGap: 18, margin: [0, 0, 0, 8] },
+      {
+        table: {
+          widths: ["*", "*"],
+          body: [
+            [cell("caseNo", data.caseNo), cell("treatDate", data.treatment)],
+            [cell("provider", data.recipient), cell("patientFull", data.name)],
+            [cell("dob", data.dob), cell("location", data.location)],
+          ],
+        },
+        layout: {
+          hLineWidth: (i) => (i > 0 ? 0.5 : 0),
+          vLineWidth: () => 0,
+          hLineColor: () => "#d8dee4",
+          paddingLeft: (i) => (i === 0 ? 0 : 9),
+          paddingRight: (i) => (i === 0 ? 9 : 0),
+        },
+        margin: [0, 2, 0, 10],
+      },
+      sec("s1", para("s1Text"), pair((t) => ({ text: t.s1Recipient, bold: true })), para("s1After")),
+      sec("s2", para("s2Text")),
+      sec("s3", para("s3Text")),
+      sec("s4", para("s4Email"), pair((t) => ({ columns: [box(data.telehealth), { text: t.telehealth }] }))),
+      sec("s5", pair((t) => ({ ul: t.s5Items, markerColor: "#555" }))),
+      sec(
+        "s6",
+        para("s6Text"),
+        pair((t) => ({ columns: [box(data.digital), { text: t.digital }] })),
+      ),
+    ];
+
+    const signer = rep ? rep.name : data.name;
+    const day0 = day(when);
+    const sigLine = (key, image, width) => ({
+      width,
+      stack: [
+        image ? { image: image.url, fit: [240, 60], margin: [0, 0, 0, 0] } : { text: " ", margin: [0, 28, 0, 0] },
+        { canvas: [{ type: "line", x1: 0, y1: 2, x2: width, y2: 2, lineWidth: 0.6 }] },
+        { text: lbl(key), style: "label", margin: [0, 2, 0, 0] },
+      ],
+    });
+    content.push({
+      unbreakable: true,
+      margin: [0, 12, 0, 0],
+      stack: [
+        {
+          columns: [
+            sigLine("signature", rep ? null : sig, 300),
+            { width: "*", text: "" },
+            {
+              width: 200,
+              stack: [
+                { text: `${data.location}, ${day0}`, fontSize: 10, margin: [0, 40, 0, 2] },
+                { canvas: [{ type: "line", x1: 0, y1: 0, x2: 200, y2: 0, lineWidth: 0.6 }] },
+                { text: lbl("place"), style: "label", margin: [0, 2, 0, 0] },
+              ],
+            },
+          ],
+        },
+        {
+          columns: [
+            {
+              width: 300,
+              stack: [
+                { text: rep ? rep.name : " ", bold: true, margin: [0, 14, 0, 2] },
+                { canvas: [{ type: "line", x1: 0, y1: 0, x2: 300, y2: 0, lineWidth: 0.6 }] },
+                { text: lbl("repName"), style: "label", margin: [0, 2, 0, 0] },
+              ],
+            },
+            { width: "*", text: "" },
+            sigLine("repSignature", rep ? sig : null, 200),
+          ],
+          margin: [0, 6, 0, 0],
+        },
+        sig || data.digital
+          ? {
+              text: `${fill(T.de.signedAt, { when: stamp(when) })} / ${fill(T.en.signedAt, { when: stamp(when) })}`,
+              style: "label",
+              margin: [0, 8, 0, 0],
+            }
+          : {},
+      ],
+    });
+
+    content.push({
+      unbreakable: true,
+      margin: [0, 18, 0, 0],
+      stack: [
+        { text: lbl("internal"), style: "head" },
+        blank("internalConfirmed", 500),
+        blank("internalDocumented", 500),
+        blank("internalId", 500),
+        blank("internalChecked", 500),
+      ],
+    });
+    content.push(pair((t) => ({ text: t.confidentiality }), { style: "small", margin: [0, 16, 0, 0] }));
+
+    const doc = {
+      pageSize: "A4",
+      pageMargins: [40, 36, 40, 40],
+      info: {
+        title: `${data.caseNo} - ${data.name} medical release form`,
+        author: signer,
+        subject: "Medical Information Release, Data Sharing & Optional Telemedicine Consent",
+        creator: "Goral Assistance",
+      },
+      content,
+      footer: (page, pages) => ({
+        columns: [
+          { text: `${lbl("caseNo")} ${data.caseNo}` },
+          { text: `${T.de.page} / ${T.en.page} ${page}/${pages}`, alignment: "right" },
+        ],
+        style: "label",
+        margin: [40, 12, 40, 0],
+      }),
+      defaultStyle: { font: "Roboto", fontSize: 9.5, lineHeight: 1.2 },
+      styles: {
+        title: { fontSize: 13, bold: true, alignment: "center", color: "#1d2a35" },
+        head: { bold: true, fontSize: 10.5, color: "#1d2a35", margin: [0, 8, 0, 3] },
+        label: { fontSize: 8, color: "#555" },
+        small: { fontSize: 7, color: "#555" },
+      },
+    };
+    const pdf = pdfMake.createPdf(doc);
+    return new Promise((resolve) => pdf.getBlob(resolve));
+  }
+
   function fileName(data) {
     const safe = (s) => s.replace(/[\\/:*?"<>|]+/g, " ").replace(/\s+/g, " ").trim();
     return safe(`${data.caseNo} - ${data.name} medical release form`) + ".pdf";
   }
 
-  return { build, fileName, day, load };
+  return { build, build2, fileName, day, load };
 })();

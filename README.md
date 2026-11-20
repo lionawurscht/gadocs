@@ -20,6 +20,18 @@ The payload (`codec.js`): the fields as JSON with short keys (`c` case,
 (`deflate-raw`), base64url, behind the version letter `1`. Short and
 unreadable at a glance; no protection, the code is public.
 
+## Form versions
+
+`?mrf-version=01` is the form as the WebApp has it (the default, also with no
+parameter). `?mrf-version=02` is the reworked Medical Information Release,
+Data Sharing & Optional Telemedicine Consent (the new MRF; its German is a
+translation to be checked). The make page has a Form version choice and puts
+the parameter into the link, e.g. `https://<site>/?mrf-version=02#data=...`;
+for a template, add the parameter by hand. Version 02 also takes the date of
+treatment (`t`) and the current location (`p`) in the payload; the patient can
+complete the location. Version 02's texts are `TEXTS2` in `texts.js`, its PDF
+`Pdf.build2`.
+
 ## Files
 
 | File | What |

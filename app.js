@@ -5,10 +5,15 @@
 
 (() => {
   const $ = (id) => document.getElementById(id);
+  // ?mrf-version=01 (the form as the WebApp has it, the default) or 02 (the reworked one)
+  const asked = new URLSearchParams(location.search).get("mrf-version");
+  const version = MRF_VERSIONS.includes(asked) ? asked : MRF_DEFAULT;
+  const v2 = version === "02";
+  const TX = v2 ? TEXTS2 : TEXTS;
   const state = { lang: "de", data: null, signature: null, pdfUrl: null };
 
   function t(key) {
-    return key.split(".").reduce((o, k) => (o ? o[k] : undefined), TEXTS[state.lang]) ?? key;
+    return key.split(".").reduce((o, k) => (o ? o[k] : undefined), TX[state.lang]) ?? key;
   }
 
   function render() {
@@ -19,8 +24,12 @@
       b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang));
     }
     document.title = `Goral Assistance – ${t("docTitle")}`;
+    if (v2) {
+      const ul = $("s5-items");
+      ul.replaceChildren(...TX[state.lang].s5Items.map((x) => Object.assign(document.createElement("li"), { textContent: x })));
+    }
     if (state.data) {
-      $("s1-text").textContent = fill(t("s1Text"), state.data);
+      if (!v2) $("s1-text").textContent = fill(t("s1Text"), state.data);
       $("sig-label").textContent = $("c-rep").checked ? t("repSignature") : t("signature");
       $("b-sign").textContent = state.signature ? t("signAgain") : t("sign");
     }
@@ -96,6 +105,16 @@
     const rep = $("c-rep").checked
       ? { name: $("rep-name").value.trim(), kind: $("rep-kind").value, detail: $("rep-detail").value.trim() }
       : null;
+    if (v2) {
+      return {
+        ...state.data,
+        location: $("g-loc").value.trim(),
+        telehealth: $("c-tele").checked,
+        digital: $("c-digital").checked,
+        rep,
+        signature: state.signature,
+      };
+    }
     return {
       ...state.data,
       record: $("c-record").checked,
@@ -107,6 +126,12 @@
   }
 
   function problem(f) {
+    if (v2) {
+      if (!f.location) return "needLocation";
+      if (f.rep && !f.rep.name) return "needRepName";
+      if (!f.signature && !f.digital) return "needSignature";
+      return null;
+    }
     if (!f.record) return "needRecord";
     if (!f.electronic && !f.hardCopy) return "needForm";
     if (f.rep && !f.rep.name) return "needRepName";
@@ -126,7 +151,7 @@
     const button = $("b-pdf");
     button.disabled = true;
     try {
-      const blob = await Pdf.build(f);
+      const blob = await (v2 ? Pdf.build2(f) : Pdf.build(f));
       const name = Pdf.fileName(f);
       state.pdfUrl = URL.createObjectURL(blob);
       $("b-download").href = state.pdfUrl;
@@ -161,6 +186,13 @@
     if (!state.data.name || !state.data.caseNo) return fail("badLink");
     if (state.data.lang === "de" || state.data.lang === "en") state.lang = state.data.lang;
 
+    document.body.classList.toggle("v2", v2);
+    $("g-recipient").textContent = state.data.recipient;
+    $("g-name").textContent = state.data.name;
+    $("g-dob").textContent = state.data.dob;
+    $("g-case").textContent = state.data.caseNo;
+    $("g-treat").textContent = state.data.treatment;
+    $("g-loc").value = state.data.location;
     $("f-recipient").textContent = state.data.recipient;
     $("f-name").textContent = state.data.name;
     $("f-dob").textContent = state.data.dob;

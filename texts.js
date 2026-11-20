@@ -170,3 +170,118 @@ const TEXTS = {
 function fill(text, values) {
   return text.replace(/\{(\w+)\}/g, (m, k) => (k in values ? values[k] : m));
 }
+
+// The second version of the form (?mrf-version=02): the reworked Medical
+// Information Release, Data Sharing & Optional Telemedicine Consent. The
+// English is the new MRF as drafted; the German is a translation of it (to be
+// checked by a German speaker before it goes to a provider). Page and PDF
+// texts that do not change come from the first version.
+const MRF_VERSIONS = ["01", "02"];
+const MRF_DEFAULT = "01";
+
+const TEXTS2 = {
+  de: {
+    ...TEXTS.de,
+    docTitle: "Einwilligung und Schweigepflichtentbindung",
+    title: "Entbindung von der Schweigepflicht, Datenweitergabe und optionale Einwilligung zur Telemedizin",
+    caseNo: "Goral-Fallnummer",
+    provider: "Behandelnder Arzt / Praxis",
+    treatDate: "Behandlungsdatum",
+    patientFull: "Vollständiger Name der Patientin / des Patienten",
+    dob: "Geburtsdatum",
+    location: "Aktueller Aufenthaltsort (Stadt / PLZ / Land)",
+    locationPh: "z. B. 50667 Köln, Deutschland",
+    s1: "1. Entbindung von der ärztlichen Schweigepflicht",
+    s1Text:
+      "Hiermit entbinde ich den oben genannten Behandler, einschließlich seines Praxisteams und der beteiligten medizinischen Fachkräfte, von der gesetzlichen ärztlichen Schweigepflicht. Sie dürfen meine medizinischen Daten und Abrechnungsdaten ausschließlich weitergeben an:",
+    s1Recipient: "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Deutschland",
+    s1After:
+      "Andere Dritte erhalten meine Daten nicht, es sei denn, dies ist gesetzlich vorgeschrieben oder für eine in meinem Auftrag organisierte medizinische Weiterbehandlung erforderlich.",
+    s2: "2. Welche Daten",
+    s2Text:
+      "Mein Name, Geburtsdatum, Kontaktdaten und aktueller Aufenthaltsort; Daten zur Identitätsprüfung; Symptome, relevante Krankengeschichte, Diagnosen, Labor-/Bildgebungsbefunde, Behandlungs- und Konsultationsunterlagen; Rezepte, medizinische Berichte (MR) und spezifizierte Rechnungen (einschließlich damit zusammenhängender Folgebehandlungen).",
+    s3: "3. Zweck",
+    s3Text:
+      "Um meine Identität zu prüfen, meine medizinische Behandlung zu organisieren und durchzuführen, eine Kostenübernahmegarantie (GOP) auszustellen, den Versicherungsschutz zu prüfen, ärztliche Rechnungen direkt mit dem Behandler abzurechnen und, falls erforderlich, weitere Behandlung, Rezepte, einen Krankenhausaufenthalt oder den medizinischen Rücktransport zu organisieren.",
+    s4: "4. E-Mail-Kommunikation und optionale Einwilligung zur Telemedizin",
+    s4Email:
+      "E-Mail-Übermittlung: Ich bin damit einverstanden, dass medizinische Berichte, Rezepte und Rechnungen elektronisch (z. B. per E-Mail oder Patientenportal) zwischen dem Behandler, Goral Assistance und mir übermittelt werden. Mir ist bekannt, dass gewöhnliche unverschlüsselte E-Mail nicht vollständig sicher ist.",
+    telehealth:
+      "Optional – Telemedizinische Beratung (nur ankreuzen, wenn Ihre Beratung per Videoanruf oder Telefon erfolgt): Ich bin mit einer Behandlung per Videoanruf oder Telefon einverstanden. Mir ist bewusst, dass eine Fernberatung diagnostische Grenzen im Vergleich zu einer körperlichen Untersuchung vor Ort hat, und ich bestätige, dass ich mich während der Teleberatung physisch am oben angegebenen aktuellen Aufenthaltsort befinde.",
+    s5: "5. Meine Wahl und Datenschutzrechte",
+    s5Items: [
+      "Meine Einwilligung ist freiwillig und gilt für diesen Fall und die damit zusammenhängende Folgebehandlung für höchstens 12 Monate.",
+      "Ich kann meine Einwilligung jederzeit mit Wirkung für die Zukunft per E-Mail oder Brief an den Behandler oder an Goral Assistance widerrufen. Vor dem Widerruf weitergegebene Daten bleiben rechtmäßig weitergegeben.",
+      "Ohne Einwilligung kann meine Behandlung oder direkte Abrechnung nicht organisiert werden; in diesem Fall zahle ich die ärztliche Rechnung selbst.",
+      "Ich kann Auskunft über meine Daten sowie deren Berichtigung oder Löschung verlangen (im Rahmen der gesetzlichen Grenzen) und mich bei einer zuständigen Datenschutz-Aufsichtsbehörde beschweren (z. B. LDI NRW, Düsseldorf).",
+      "Mir ist bekannt, dass der Arzt nach deutschem Recht Behandlungsunterlagen 10 Jahre aufbewahren muss.",
+    ],
+    s6: "6. Bestätigung",
+    s6Text: "Ich habe dieses Formular gelesen und verstanden und bin einverstanden.",
+    digital:
+      "Digitale / mündliche Bestätigung (falls nicht auf Papier unterschrieben wird): Ich bestätige meine Einwilligung digital (per E-Mail, Nachricht oder Online-Bestätigung) oder mündlich während der dokumentierten Videoberatung. Eine handschriftliche Unterschrift ist dann nicht erforderlich.",
+    place: "Ort, Datum",
+    signature: "Unterschrift der Patientin / des Patienten (bei Unterschrift auf Papier/Bildschirm)",
+    repName: "Name der Vertretungsperson und Beziehung (bei Minderjährigen / nicht Einwilligungsfähigen)",
+    repNamePh: "Name, Beziehung, z. B. Elternteil / Betreuer",
+    repSignature: "Unterschrift der Vertretungsperson",
+    internal: "Nur für Behandler / Goral – Nachweis der digitalen Einwilligung und Identitätsprüfung",
+    internalConfirmed: "Bestätigt über (schriftlich / E-Mail / Nachricht / Video):",
+    internalDocumented: "Datum, Uhrzeit und dokumentiert von:",
+    internalId: "Identität geprüft anhand (Reisepass / Personalausweis):",
+    internalChecked: "Geprüft von (Goral / Behandler):",
+    needLocation: "Bitte geben Sie Ihren aktuellen Aufenthaltsort an.",
+  },
+  en: {
+    ...TEXTS.en,
+    docTitle: "Medical Release",
+    title: "Medical Information Release, Data Sharing & Optional Telemedicine Consent",
+    caseNo: "Goral File Number",
+    provider: "Healthcare Provider / Practice",
+    treatDate: "Date of Treatment",
+    patientFull: "Patient Full Name",
+    dob: "Date of Birth",
+    location: "Current Location (City / Postal Code / Country)",
+    locationPh: "e.g. 50667 Cologne, Germany",
+    s1: "1. Release from Medical Confidentiality",
+    s1Text:
+      "I hereby release the healthcare provider named above, including their practice team and involved medical staff, from statutory medical confidentiality. They are authorized to share my medical and billing data exclusively with:",
+    s1Recipient: "Goral Assistance Germany GmbH, Girardetstraße 4, 45131 Essen, Germany",
+    s1After:
+      "No other third parties will receive my data unless required by law or necessary for follow-up medical care arranged on my behalf.",
+    s2: "2. Which Data",
+    s2Text:
+      "My name, date of birth, contact details, and current location; identity verification data; symptoms, relevant medical history, diagnoses, lab/imaging findings, treatment and consultation records; prescriptions, medical reports (MR), and itemized invoices (including related follow-up care).",
+    s3: "3. Why",
+    s3Text:
+      "To verify my identity, organize and carry out my medical treatment, issue a Guarantee of Payment (GOP), verify coverage, settle medical invoices directly with the provider, and—if needed—arrange further care, prescriptions, hospitalization, or medical transport home.",
+    s4: "4. E-Mail Communication & Optional Telemedicine Consent",
+    s4Email:
+      "E-Mail Transmission: I agree that medical reports, prescriptions, and invoices may be sent electronically (e.g., by e-mail or patient portal) between the provider, Goral Assistance, and myself. I know that standard unencrypted e-mail is not fully secure.",
+    telehealth:
+      "Optional — Telehealth Consultation (tick only if your consultation is by video call or phone): I agree to treatment by video call or phone. I understand that a remote consultation has diagnostic limitations compared to an in-person physical examination, and I confirm that I am physically located at the current location stated above during the teleconsultation.",
+    s5: "5. My Choice & Data Protection Rights",
+    s5Items: [
+      "My consent is voluntary and valid for this case and related follow-up care for a maximum of 12 months.",
+      "I can withdraw my consent at any time with future effect by e-mail or letter to the provider or to Goral Assistance. Data shared before withdrawal remains lawfully shared.",
+      "Without consent, my care or direct billing cannot be organized; in that case, I will pay the medical bill myself.",
+      "I can request access to, correction, or deletion of my data (within legal limits) and can lodge a complaint with a competent data protection supervisory authority (e.g., LDI NRW, Düsseldorf).",
+      "I acknowledge that under German law, the physician must retain medical records for 10 years.",
+    ],
+    s6: "6. Confirmation",
+    s6Text: "I have read and understood this form and I agree.",
+    digital:
+      "Digital / Verbal Confirmation (if not signing on paper): I confirm my consent digitally (via e-mail, message, or online confirmation) or verbally during the documented video consultation. No handwritten signature is needed then.",
+    place: "Place, Date",
+    signature: "Patient Signature (if signed on paper/screen)",
+    repName: "Name of Representative (if minor / incapacitated)",
+    repNamePh: "Name & Relationship, e.g. Parent / Guardian",
+    repSignature: "Representative Signature",
+    internal: "For Provider / Goral Use Only — Proof of Digital Consent & Identity Check",
+    internalConfirmed: "Confirmed via (written / e-mail / message / video):",
+    internalDocumented: "Date, time & documented by:",
+    internalId: "Identity checked via (passport / ID card):",
+    internalChecked: "Checked by (Goral / Provider):",
+    needLocation: "Please enter your current location.",
+  },
+};

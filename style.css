@@ -259,3 +259,9 @@ p { margin: 0.4rem 0; }
 }
 
 @media (orientation: landscape) { .padhint { display: none; } }
+
+/* the two versions of the form (?mrf-version=): each hides the other's blocks */
+body.v2 .v1only, body:not(.v2) .v2only { display: none !important; }
+body.v2 #rep-kind-field, body.v2 #rep-detail-field { display: none; }
+#s5-items { padding-left: 1.2rem; margin: 0.3rem 0; }
+#s5-items li { margin: 0.25rem 0; }

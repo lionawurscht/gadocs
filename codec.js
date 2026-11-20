@@ -7,7 +7,7 @@
 const Codec = (() => {
   const VERSION = "1";
   // short keys in the link, readable names in the app
-  const KEYS = { c: "caseNo", n: "name", d: "dob", r: "recipient", l: "lang" };
+  const KEYS = { c: "caseNo", n: "name", d: "dob", r: "recipient", l: "lang", t: "treatment", p: "location" };
 
   function toB64u(bytes) {
     let bin = "";
