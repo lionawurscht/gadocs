@@ -117,7 +117,10 @@ p { margin: 0.4rem 0; }
 }
 
 .q { border: 2px solid var(--line); border-radius: 0.6rem; padding: 0.6rem 0.7rem 0.7rem; margin: 0.8rem 0; min-width: 0; transition: border-color 0.2s, background 0.2s; }
-.q legend { font-weight: 600; padding: 0 0.3rem; }
+.qtitle { font-weight: 600; margin-bottom: 0.2rem; }
+.qtitle .badge { margin: 0 0.5rem 0 0; }
+.qnote { margin: 0.2rem 0 0.2rem; font-size: 0.9rem; color: var(--warn); font-weight: 600; }
+.q.done .qnote { color: var(--muted); font-weight: 400; }
 .q.open { border-color: var(--warn); background: var(--warnbg); animation: nudge 1.6s ease-in-out infinite; }
 .q.done { border-color: var(--green); }
 .q.done .badge { display: none; }
@@ -294,3 +297,5 @@ body.v2 #rep-kind-field, body.v2 #rep-detail-field { display: none; }
 .aidbox { border: 1px dashed var(--muted); background: #fafbfc; border-radius: 0.4rem; padding: 0.45rem 0.7rem; margin: -0.3rem 0 0.8rem; font-size: 0.92rem; color: #33414d; }
 .aidbox::before { content: attr(data-aidlabel); display: block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: var(--muted); }
 .aidinline { display: block; font-size: 0.85rem; font-weight: 400; color: #33414d; border-left: 3px dashed var(--line); padding-left: 0.5rem; margin-top: 0.2rem; }
+
+.qnote + .aid, .qtitle .aidinline { margin-bottom: 0.3rem; }
