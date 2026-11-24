@@ -14,13 +14,21 @@
 <body>
 <header class="top">
   <img class="logo" src="logo.png" alt="Goral Assistance">
-  <div class="langs" role="group" aria-label="Sprache / Language">
-    <button type="button" data-lang="de">DE</button>
-    <button type="button" data-lang="en">EN</button>
+  <div class="langbar">
+    <div class="langs" role="group" aria-label="Sprache / Language">
+      <button type="button" data-lang="de">DE</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <div class="langs aids" role="group" aria-label="Hilfe / Help (es, pt, pl)">
+      <button type="button" data-aid="es" title="Traducción como ayuda">ES · ayuda</button>
+      <button type="button" data-aid="pt" title="Tradução como ajuda">PT · ajuda</button>
+      <button type="button" data-aid="pl" title="Tłumaczenie jako pomoc">PL · pomoc</button>
+    </div>
   </div>
 </header>
 
 <main id="app" hidden>
+  <p class="aidnotice" id="aid-notice" hidden></p>
   <div class="v1only">
   <h1 data-t="title"></h1>
   <p class="intro" data-t="intro"></p>
@@ -34,7 +42,7 @@
 
   <section>
     <h2 data-t="s1"></h2>
-    <p id="s1-text"></p>
+    <p id="s1-text" data-aid-key="s1Text"></p>
   </section>
 
   <section>
@@ -184,6 +192,7 @@
 </div>
 
 <script src="texts.js?v=4"></script>
+<script src="aid.js?v=4"></script>
 <script src="codec.js?v=4"></script>
 <script src="signature.js?v=4"></script>
 <script src="pdf.js?v=4"></script>

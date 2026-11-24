@@ -10,7 +10,7 @@
   const version = MRF_VERSIONS.includes(asked) ? asked : MRF_DEFAULT;
   const v2 = version === "02";
   const TX = v2 ? TEXTS2 : TEXTS;
-  const state = { lang: "de", data: null, signature: null, pdfUrl: null };
+  const state = { lang: "de", aid: "", data: null, signature: null, pdfUrl: null };
 
   function t(key) {
     return key.split(".").reduce((o, k) => (o ? o[k] : undefined), TX[state.lang]) ?? key;
@@ -34,6 +34,42 @@
       $("sig-label").textContent = $("c-rep").checked ? t("repSignature") : t("signature");
       $("b-sign").textContent = state.signature ? t("signAgain") : t("sign");
       nudge();
+    }
+    renderAid();
+  }
+
+  // the aid languages (aid.js): the translation under the German / English
+  // text, as a help only. The link can ask for one: #data=...&aid=es
+  function renderAid() {
+    for (const el of document.querySelectorAll(".aid")) el.remove();
+    for (const b of document.querySelectorAll("[data-aid]")) {
+      b.setAttribute("aria-pressed", String(b.dataset.aid === state.aid));
+    }
+    $("aid-notice").hidden = !state.aid;
+    if (!state.aid) return;
+    $("aid-notice").textContent = AID_NOTICE[state.aid];
+    const dict = { ...AID.common[state.aid], ...(AID[version] || {})[state.aid] };
+    const values = state.data || {};
+    for (const el of document.querySelectorAll("#app [data-t], #app [data-aid-key]")) {
+      if (el.closest(v2 ? ".v1only" : ".v2only")) continue;
+      const text = dict[el.dataset.aidKey || el.dataset.t];
+      if (typeof text !== "string") continue;
+      const aid = document.createElement(el.tagName === "P" ? "div" : "span");
+      aid.className = el.tagName === "P" ? "aid aidbox" : "aid aidinline";
+      aid.textContent = fill(text, values);
+      if (el.tagName === "P") {
+        aid.dataset.aidlabel = AID_LABEL[state.aid];
+        el.after(aid);
+      } else {
+        el.append(aid);
+      }
+    }
+    if (v2 && dict.s5Items) {
+      $("s5-items").querySelectorAll("li").forEach((li, i) => {
+        if (!dict.s5Items[i]) return;
+        const aid = Object.assign(document.createElement("span"), { className: "aid aidinline", textContent: dict.s5Items[i] });
+        li.append(aid);
+      });
     }
   }
 
@@ -95,6 +131,12 @@
   for (const el of document.querySelectorAll("#app input, #app select, #app textarea")) {
     el.addEventListener("input", stale);
     el.addEventListener("change", stale);
+  }
+  for (const b of document.querySelectorAll("[data-aid]")) {
+    b.addEventListener("click", () => {
+      state.aid = state.aid === b.dataset.aid ? "" : b.dataset.aid;
+      render();
+    });
   }
   for (const b of document.querySelectorAll("[data-lang]")) {
     b.addEventListener("click", () => {
@@ -216,6 +258,8 @@
     }
     if (!state.data.name || !state.data.caseNo) return fail("badLink");
     if (state.data.lang === "de" || state.data.lang === "en") state.lang = state.data.lang;
+    const aid = new URLSearchParams(location.hash.replace(/^#/, "")).get("aid");
+    if (AID_LANGS.includes(aid)) state.aid = aid;
 
     document.body.classList.toggle("v2", v2);
     $("g-recipient").textContent = state.data.recipient;

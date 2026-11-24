@@ -284,3 +284,13 @@ body.v2 .v1only, body:not(.v2) .v2only { display: none !important; }
 body.v2 #rep-kind-field, body.v2 #rep-detail-field { display: none; }
 #s5-items { padding-left: 1.2rem; margin: 0.3rem 0; }
 #s5-items li { margin: 0.25rem 0; }
+
+/* the aid languages: help beside the German / English text, never in the PDF */
+.top { flex-wrap: wrap; }
+.langbar { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-end; }
+.langs.aids { border-style: dashed; }
+.langs.aids button { font-weight: 500; font-size: 0.85rem; padding: 0.4rem 0.6rem; }
+.aidnotice { background: #eef3f8; border-left: 4px solid var(--blue); padding: 0.5rem 0.7rem; font-size: 0.88rem; margin: 0 0 1rem; border-radius: 0.2rem; }
+.aidbox { border: 1px dashed var(--muted); background: #fafbfc; border-radius: 0.4rem; padding: 0.45rem 0.7rem; margin: -0.3rem 0 0.8rem; font-size: 0.92rem; color: #33414d; }
+.aidbox::before { content: attr(data-aidlabel); display: block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; color: var(--muted); }
+.aidinline { display: block; font-size: 0.85rem; font-weight: 400; color: #33414d; border-left: 3px dashed var(--line); padding-left: 0.5rem; margin-top: 0.2rem; }

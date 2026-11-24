@@ -19,6 +19,8 @@
     // ?mrf-version=02 picks the reworked form; no parameter is version 01
     if ($("mrf").value !== "01") url.searchParams.set("mrf-version", $("mrf").value);
     url.hash = "data=" + (await Codec.encode(fields));
+    // &aid=es / pt / pl opens the page with that help language on
+    if ($("aid").value) url.hash += "&aid=" + $("aid").value;
     $("link").value = url.href;
     $("open").href = url.href;
     $("out").hidden = false;
