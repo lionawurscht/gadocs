@@ -33,6 +33,7 @@
       if (!v2) $("s1-text").textContent = fill(t("s1Text"), state.data);
       $("sig-label").textContent = $("c-rep").checked ? t("repSignature") : t("signature");
       $("b-sign").textContent = state.signature ? t("signAgain") : t("sign");
+      nudge();
     }
   }
 
@@ -116,11 +117,13 @@
         signature: state.signature,
       };
     }
+    const choice = (name) => (document.querySelector(`input[name="${name}"]:checked`) || {}).value;
+    const form = choice("form");
     return {
       ...state.data,
-      record: $("c-record").checked,
-      electronic: $("c-electronic").checked,
-      hardCopy: $("c-hardcopy").checked,
+      record: choice("record") === "yes",
+      electronic: form === "electronic" || form === "both",
+      hardCopy: form === "hardcopy" || form === "both",
       rep,
       signature: state.signature,
     };
@@ -141,8 +144,35 @@
     return null;
   }
 
+  // nothing is preselected; the open questions glow and the button waits
+  const QUESTIONS = ["q-record", "q-form"];
+  function openQuestions() {
+    return v2 ? [] : QUESTIONS.filter((id) => !$(id).querySelector("input:checked"));
+  }
+
+  function nudge() {
+    if (v2) return;
+    const open = openQuestions();
+    for (const id of QUESTIONS) {
+      $(id).classList.toggle("open", open.includes(id));
+      $(id).classList.toggle("done", !open.includes(id));
+    }
+    $("open-line").textContent = open.length === 1 ? t("openOne")
+      : open.length ? t("openMany").replace("{n}", open.length) : t("allAnswered");
+    $("open-line").style.color = open.length ? "" : "var(--muted)";
+    $("b-pdf").setAttribute("aria-disabled", String(open.length > 0));
+  }
+  for (const el of document.querySelectorAll("#q-record input, #q-form input")) {
+    el.addEventListener("change", () => { say(""); nudge(); });
+  }
+
   $("b-pdf").addEventListener("click", async () => {
     stale();
+    const open = openQuestions();
+    if (open.length) {
+      $(open[0]).scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     const f = collect();
     const p = problem(f);
     if (p) {

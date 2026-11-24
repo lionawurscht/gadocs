@@ -9,7 +9,7 @@
       content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' data: blob:; frame-src blob:; base-uri 'none'; form-action 'none'">
 <title>Goral Assistance – Medical Release</title>
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 <header class="top">
@@ -41,10 +41,21 @@
     <h2 data-t="s2"></h2>
     <p data-t="s2Text"></p>
     <p class="hint" data-t="tick"></p>
-    <label class="check"><input type="checkbox" id="c-record" checked><span data-t="record"></span></label>
-    <p class="sub" data-t="form"></p>
-    <label class="check"><input type="checkbox" id="c-electronic" checked><span data-t="electronic"></span></label>
-    <label class="check"><input type="checkbox" id="c-hardcopy"><span data-t="hardCopy"></span></label>
+    <fieldset class="q open" id="q-record">
+      <legend><span data-t="record"></span> <span class="badge" data-t="answerNeeded"></span></legend>
+      <div class="opts">
+        <label><input type="radio" name="record" value="yes"><span data-t="yes"></span></label>
+        <label><input type="radio" name="record" value="no"><span data-t="no"></span></label>
+      </div>
+    </fieldset>
+    <fieldset class="q open" id="q-form">
+      <legend><span data-t="form"></span> <span class="badge" data-t="answerNeeded"></span></legend>
+      <div class="opts stack">
+        <label><input type="radio" name="form" value="electronic"><span data-t="electronic"></span></label>
+        <label><input type="radio" name="form" value="hardcopy"><span data-t="hardCopy"></span></label>
+        <label><input type="radio" name="form" value="both"><span data-t="formBoth"></span></label>
+      </div>
+    </fieldset>
   </section>
 
   <section>
@@ -141,6 +152,7 @@
 
   <p class="error" id="msg" role="alert" hidden></p>
 
+  <p class="openline" id="open-line" role="status"></p>
   <div class="actions">
     <button type="button" class="btn primary" id="b-pdf" data-t="makePdf"></button>
   </div>
@@ -171,10 +183,10 @@
   </div>
 </div>
 
-<script src="texts.js?v=3"></script>
-<script src="codec.js?v=3"></script>
-<script src="signature.js?v=3"></script>
-<script src="pdf.js?v=3"></script>
-<script src="app.js?v=3"></script>
+<script src="texts.js?v=4"></script>
+<script src="codec.js?v=4"></script>
+<script src="signature.js?v=4"></script>
+<script src="pdf.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

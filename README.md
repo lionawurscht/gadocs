@@ -47,8 +47,7 @@ complete the location. Version 02's texts are `TEXTS2` in `texts.js`, its PDF
 
 ## Defaults
 
-Ticked: the complete health record and the electronic copy. Hard copy not.
-A PDF needs the record ticked, one form of disclosure, a signature, and
+Nothing is preselected (version 01). The two questions, the record (Yes / No) and the form of disclosure (electronic, hard copy or both), glow until answered, a line counts what is open and the PDF button waits. A PDF needs a Yes to the record, a form of disclosure, a signature, and
 with a representative their name (and a description for Other).
 
 The PDF is named `<case> - <name> medical release form.pdf`.
